@@ -7,21 +7,21 @@ const NavbarItems = () => {
             
             <Link
               to='/'
-              className=' px-3 py-2 rounded-lg hover:bg-neutral-100 transition font-semibold'
+              className=' px-3 py-2 rounded-lg hover:bg-neutral-100 hover:text-black transition font-semibold'
             >
               Home
             </Link>
              
              <Link
               to='/instructors'
-              className=' px-3 py-2 rounded-lg hover:bg-neutral-100 transition font-semibold'
+              className=' px-3 py-2 rounded-lg hover:bg-neutral-100  hover:text-black transition font-semibold'
             >
               Instructors
             </Link>
             
             <Link
               to='/classes'
-              className=' px-3 py-2 rounded-lg hover:bg-neutral-100 transition font-semibold'
+              className=' px-3 py-2 rounded-lg hover:bg-neutral-100 hover:text-black transition font-semibold'
             >
               Classes
             </Link>
