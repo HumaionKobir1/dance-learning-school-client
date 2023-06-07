@@ -1,6 +1,7 @@
 import Container from "../Container";
 import Logo from "./Logo";
 import MenuDropdown from "./MenuDropdown";
+import NavbarItems from "./NavbarItems";
 
 const Navber = () => {
     return (
@@ -9,6 +10,8 @@ const Navber = () => {
                 <Container>
                     <div className="flex flex-row items-center justify-between gap-3">
                         <Logo></Logo>
+                        <NavbarItems></NavbarItems>
+
                         <MenuDropdown></MenuDropdown>
                     </div>
                 </Container>
