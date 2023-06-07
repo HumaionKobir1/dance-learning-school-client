@@ -9,7 +9,7 @@ const MenuDropdown = () => {
     setIsOpen(value => !value)
   }, [])
   return (
-    <div className='relative'>
+    <div className='relative text-black'>
       <div className='flex flex-row items-center gap-3 '>
         
         <div
