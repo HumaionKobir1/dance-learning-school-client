@@ -1,15 +1,41 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+import {TbFidgetSpinner} from 'react-icons/tb'
+
 
 import './login.css'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
+    const {signIn , loading, setLoading} = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate()
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
     };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        signIn(email, password)
+        .then(result => {
+            console.log(result.user);
+            navigate(from, {replace: true});
+
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(err.message)
+            toast.error(err.message);
+        })
+    }
     return (
         <div
             className="relative bg-img flex items-center justify-center h-screen"
@@ -22,7 +48,7 @@ const Login = () => {
                     Sign in to your account
                 </h2>
                 </div>
-                <form className="mt-8 space-y-6">
+                <form onSubmit={handleSubmit} className="mt-8 space-y-6">
                 <div className="rounded-md shadow-sm -space-y-px">
                     <div>
                     <label htmlFor="email-address" className="sr-only">
@@ -34,7 +60,7 @@ const Login = () => {
                         </div>
                         <input
                         id="email-address"
-                        name="email-address"
+                        name="email"
                         type="email"
                         autoComplete="email"
                         required
@@ -104,7 +130,9 @@ const Login = () => {
                     type="submit"
                     className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                    Sign In
+                    {loading?<TbFidgetSpinner size={24} className='mx-auto animate-spin'></TbFidgetSpinner> : 'Sign In'}
+
+                    
                     </button>
                 </div>
                 </form>

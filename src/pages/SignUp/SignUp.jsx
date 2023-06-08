@@ -1,12 +1,16 @@
 import { useContext, useState } from "react";
 import { FaEnvelope, FaEye, FaEyeSlash, FaImage, FaLock, FaUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
+import {TbFidgetSpinner} from 'react-icons/tb'
 
 const SignUp = () => {
-    const { createUser, updateUserProfile} = useContext(AuthContext);
+    const { createUser, loading, setLoading, updateUserProfile} = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
@@ -26,9 +30,11 @@ const SignUp = () => {
             console.log(result);
             updateUserProfile(name, image)
             toast.success('User create successful')
+            navigate(from, {replace: true});
         })
         .catch(err => {
             console.log(err);
+            setLoading(false);
         })
     }
 
@@ -165,7 +171,9 @@ const SignUp = () => {
                     type="submit"
                     className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                    Sign Up
+                    {loading?<TbFidgetSpinner size={24} className='mx-auto animate-spin'></TbFidgetSpinner> : 'Sign Up'}
+
+                    
                     </button>
                 </div>
                 </form>
