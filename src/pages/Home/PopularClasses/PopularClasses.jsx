@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Container from "../../../components/Share/Container";
 import ClassItems from "./ClassItems";
+import { Link } from "react-router-dom";
 
 const PopularClass = () => {
     const [classes, setClasses] = useState([]);
@@ -8,7 +9,7 @@ const PopularClass = () => {
     useEffect(()=> {
         fetch('allClass.json')
         .then(res => res.json())
-        .then(data => setClasses(data))
+        .then(data => setClasses(data.slice(0, 6)))
     }, [])
 
 
@@ -28,9 +29,9 @@ const PopularClass = () => {
                 }
             </div>
             <div className="flex justify-center">
-                    <button className="bg-gradient-to-r mt-5 w-48 mx-auto from-purple-950 to-gray-800 hover:from-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded shadow-lg">
+                    <Link to='/allClasses' className="bg-gradient-to-r mt-5 w-48 mx-auto from-purple-950 to-gray-800 hover:from-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded shadow-lg">
                     View All Classes
-                    </button>
+                    </Link>
             </div>
         </Container>
     </div>

@@ -13,14 +13,14 @@ const NavbarItems = () => {
             </Link>
              
              <Link
-              to='/instructors'
+              to='/allInstructor'
               className=' px-3 py-2 rounded-lg hover:bg-neutral-100  hover:text-black transition font-semibold'
             >
               Instructors
             </Link>
             
             <Link
-              to='/classes'
+              to='/allClasses'
               className=' px-3 py-2 rounded-lg hover:bg-neutral-100 hover:text-black transition font-semibold'
             >
               Classes

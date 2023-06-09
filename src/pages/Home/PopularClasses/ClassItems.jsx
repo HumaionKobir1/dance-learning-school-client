@@ -12,9 +12,9 @@ const ClassItems = ({items}) => {
             />
             <h2 className="text-2xl font-bold text-purple-900 mb-2">{Name}</h2>
             <p className="text-gray-700 mb-2">{InstructorName}</p>
-            <p className="text-gray-700 mb-2">{AvailableSeats}</p>
+            <p className="text-gray-700 mb-2">Available Seats: {AvailableSeats}</p>
             <div className="flex items-center justify-between">
-                <p className="text-gray-700 font-bold text-lg">{Price}</p>
+                <p className="text-gray-700 font-bold text-lg">$ {Price}</p>
                 <button className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                 Book
                 </button>

@@ -66,6 +66,32 @@
     },
     {
         "id" : 6,
+      "Image": "course5.jpg",
+      "Name": "Mobile App Development",
+      "InstructorName": "Emily Johnson",
+      "AvailableSeats": 1,
+      "Price": 299.99,
+      "SelectButton": {
+        "Text": "Select Course",
+        "Enabled": true,
+        "LoginRequiredMessage": "Please log in to select the course"
+      }
+    },
+    {
+        "id" : 7,
+      "Image": "course5.jpg",
+      "Name": "Mobile App Development",
+      "InstructorName": "Emily Johnson",
+      "AvailableSeats": 1,
+      "Price": 299.99,
+      "SelectButton": {
+        "Text": "Select Course",
+        "Enabled": true,
+        "LoginRequiredMessage": "Please log in to select the course"
+      }
+    },
+    {
+        "id" : 8,
       "Image": "course6.jpg",
       "Name": "Graphic Design Basics",
       "InstructorName": "David Roberts",
