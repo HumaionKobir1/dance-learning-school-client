@@ -1,0 +1,80 @@
+[
+    {
+      "id" : 1,
+      "Image": "course1.jpg",
+      "Name": "Introduction to Web Development",
+      "InstructorName": "Sarah Smith",
+      "AvailableSeats": 10,
+      "Price": 149.99,
+      "SelectButton": {
+        "Text": "Select Course",
+        "Enabled": true,
+        "LoginRequiredMessage": "Please log in to select the course"
+      }
+    },
+    {
+        "id" : 2,
+      "Image": "course2.jpg",
+      "Name": "Data Science Fundamentals",
+      "InstructorName": "Michael Johnson",
+      "AvailableSeats": 0,
+      "Price": 199.99,
+      "SelectButton": {
+        "Text": "Select Course",
+        "Enabled": false,
+        "LoginRequiredMessage": "Please log in to select the course"
+      }
+    },
+    {
+        "id" : 3,
+      "Image": "course3.jpg",
+      "Name": "Introduction to Machine Learning",
+      "InstructorName": "Jennifer Lee",
+      "AvailableSeats": 2,
+      "Price": 249.99,
+      "SelectButton": {
+        "Text": "Select Course",
+        "Enabled": true,
+        "LoginRequiredMessage": "Please log in to select the course"
+      }
+    },
+    {
+        "id" : 4,
+      "Image": "course4.jpg",
+      "Name": "Advanced JavaScript",
+      "InstructorName": "Robert Thompson",
+      "AvailableSeats": 8,
+      "Price": 179.99,
+      "SelectButton": {
+        "Text": "Select Course",
+        "Enabled": true,
+        "LoginRequiredMessage": "Please log in to select the course"
+      }
+    },
+    {
+        "id" : 5,
+      "Image": "course5.jpg",
+      "Name": "Mobile App Development",
+      "InstructorName": "Emily Johnson",
+      "AvailableSeats": 1,
+      "Price": 299.99,
+      "SelectButton": {
+        "Text": "Select Course",
+        "Enabled": true,
+        "LoginRequiredMessage": "Please log in to select the course"
+      }
+    },
+    {
+        "id" : 6,
+      "Image": "course6.jpg",
+      "Name": "Graphic Design Basics",
+      "InstructorName": "David Roberts",
+      "AvailableSeats": 0,
+      "Price": 149.99,
+      "SelectButton": {
+        "Text": "Select Course",
+        "Enabled": false,
+        "LoginRequiredMessage": "Please log in to select the course"
+      }
+    }
+  ]
