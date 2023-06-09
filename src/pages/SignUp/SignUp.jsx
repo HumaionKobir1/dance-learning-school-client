@@ -9,6 +9,9 @@ import {TbFidgetSpinner} from 'react-icons/tb'
 const SignUp = () => {
     const { createUser, loading, setLoading, updateUserProfile, signInWithGoogle} = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
+    const [passwordError, setPasswordError] = useState('');
+
+
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
@@ -25,6 +28,21 @@ const SignUp = () => {
         const password = form.password.value;
         const image = form.image.value;
         console.log(name, email, password, image)
+        setPasswordError(' ')
+
+        if (password.length < 6) {
+            setPasswordError('Password must be at least 6 characters long.')
+          }
+      
+          // Capital letter check
+          if (!/[A-Z]/.test(password)) {
+            setPasswordError('Password must contain at least one capital letter.')
+          }
+      
+          // Special character check
+          if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            setPasswordError('Password must contain at least one special character.')
+          }
 
         createUser(email, password)
         .then(result => {
@@ -142,6 +160,9 @@ const SignUp = () => {
                         className="appearance-none rounded-none relative block bg-black opacity-70 w-full px-3 py-3 pl-10 placeholder-gray-300 border border-gray-300 text-gray-100 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                         placeholder="Password"
                         />
+
+                        
+
                         <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                         {showPassword ? (
                             <FaEyeSlash
@@ -157,6 +178,10 @@ const SignUp = () => {
                             />
                         )}
                         </div>
+
+                        {passwordError && (
+                        <p className="mt-2 text-xs text-red-500">{passwordError}</p>
+                        )}
                     </div>
                     </div>
                 </div>
@@ -174,11 +199,7 @@ const SignUp = () => {
                     </label>
                     </div>
 
-                    <div className="text-sm">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                        Forgot your password?
-                    </a>
-                    </div>
+                    
                 </div>
 
                 <div>
@@ -195,7 +216,7 @@ const SignUp = () => {
                 <div className='flex items-center pt-4 space-x-1'>
                 <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
                 <p className='px-3 text-sm dark:text-gray-400'>
-                    Signup with social accounts
+                    SignUp with social accounts
                 </p>
                 <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
                 </div>
