@@ -1,20 +1,61 @@
-import  { useState } from 'react';
+import  { useContext, useState } from 'react';
+import { TbFidgetSpinner } from 'react-icons/tb';
+import { AuthContext } from '../../providers/AuthProvider';
+const img_hosting_token = import.meta.env.VITE_Image_Upload_token;
+
 
 const AddClassForm = () => {
-  const [className, setClassName] = useState('');
-  const [classImage, setClassImage] = useState('');
-  const [availableSeats, setAvailableSeats] = useState('');
-  const [price, setPrice] = useState('');
+    const {user} = useContext(AuthContext);
+//   const [classImage, setClassImage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [UploadButtonText, setUploadButtonText] = useState('Upload Image')
+  
 
-  // Assuming you have the instructor information from the logged-in user
-  const instructorName = 'John Doe';
-  const instructorEmail = 'john.doe@example.com';
+  const handleImageChange = image => {
+    setUploadButtonText(image.name);
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Logic to save the form data and create a class in the database with status: 'pending'
-    // You can use an API call or any other method for this
-    // Example: createClass(className, classImage, instructorName, instructorEmail, availableSeats, price);
+    setLoading(true);
+
+    const form = e.target;
+    const className = form.name.value;
+    const instructorName = user.displayName
+    const instructorEmail =  user.email
+    const availableSeat = form.seats.value;
+    const price = form.price.value;
+
+    // upload image in ImageBB
+    const image = form.image.files[0]
+    const formData = new FormData();
+    formData.append('image', image);
+    const url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`
+    fetch(url, {
+      method: 'POST',
+      body: formData
+    })
+
+    .then(res => res.json())
+    .then(data => {
+      const classData = {
+        image: data.data.display_url,
+        className,
+        instructorName,
+        instructorEmail,
+        availableSeat,
+        price,
+        host: {
+          name: user?.displayName,
+          image: user?.photoURL,
+          email: user?.email,
+        }
+      }
+      console.log(classData)
+      setLoading(false);
+    })
+    
   };
 
   return (
@@ -30,9 +71,8 @@ const AddClassForm = () => {
           <input
             type="text"
             id="className"
+            name='name'
             className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-indigo-500 shadow-sm"
-            value={className}
-            onChange={(e) => setClassName(e.target.value)}
             required
           />
         </div>
@@ -41,6 +81,7 @@ const AddClassForm = () => {
                 <div className='flex flex-col w-max mx-auto text-center'>
                   <label>
                     <input
+                    onChange={event => {handleImageChange(event.target.files[0])}}
                       className='text-sm cursor-pointer w-36 hidden'
                       type='file'
                       name='image'
@@ -49,7 +90,7 @@ const AddClassForm = () => {
                       hidden
                     />
                     <div className='bg-gray-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-black'>
-                      Upload Image
+                      {UploadButtonText}
                     </div>
                   </label>
                 </div>
@@ -64,7 +105,7 @@ const AddClassForm = () => {
           type="text"
           id="instructorName"
           className="w-full border border-gray-300 p-2 rounded-md bg-gray-100 cursor-not-allowed shadow-sm"
-          value={instructorName}
+          value={user.displayName}
           readOnly
         />
       </div>
@@ -76,7 +117,7 @@ const AddClassForm = () => {
           type="email"
           id="instructorEmail"
           className="w-full border border-gray-300 p-2 rounded-md bg-gray-100 cursor-not-allowed shadow-sm"
-          value={instructorEmail}
+          value={user.email}
           readOnly
         />
       </div>
@@ -87,9 +128,8 @@ const AddClassForm = () => {
         <input
           type="number"
           id="availableSeats"
+          name='seats'
           className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-indigo-500 shadow-sm"
-          value={availableSeats}
-          onChange={(e) => setAvailableSeats(e.target.value)}
           required
         />
       </div>
@@ -100,18 +140,19 @@ const AddClassForm = () => {
         <input
           type="number"
           id="price"
+          name='price'
           className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-indigo-500 shadow-sm"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
           required
         />
       </div>
       <button
-        type="submit"
-        className="bg-gray-600 text-white py-2 px-4 rounded-md hover:bg-gray-800 w-full shadow-lg"
-      >
-        Add
-      </button>
+            type="submit"
+                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                {loading?<TbFidgetSpinner size={24} className='mx-auto animate-spin'></TbFidgetSpinner> : 'Sign In'}
+
+                    
+        </button>
     </form>
     </>
   );
