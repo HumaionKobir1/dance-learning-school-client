@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
 import {TbFidgetSpinner} from 'react-icons/tb'
+import { saveUser } from "../../api/Auth";
 
 const SignUp = () => {
     const { createUser, loading, setLoading, updateUserProfile, signInWithGoogle} = useContext(AuthContext);
@@ -47,6 +48,8 @@ const SignUp = () => {
         createUser(email, password)
         .then(result => {
             console.log(result);
+            saveUser(result.user)
+
             updateUserProfile(name, image)
             toast.success('User create successful')
             navigate(from, {replace: true});
@@ -62,6 +65,7 @@ const SignUp = () => {
         signInWithGoogle()
         .then(result => {
             console.log(result);
+            saveUser(result.user)
             navigate(from, {replace: true});
         })
         .catch(error => {
