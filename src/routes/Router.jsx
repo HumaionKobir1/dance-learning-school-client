@@ -6,6 +6,7 @@ import SignUp from "../pages/SignUp/SignUp";
 import AllClasses from "../pages/AllClasses/AllClasses";
 import AllInstructor from "../pages/AllInstructor/AllInstructor";
 import DashboardLayout from "../layouts/DashboardLayout";
+import AddClassForm from "../components/Dashboard/AddClassForm";
 
 const router = createBrowserRouter([
     {
@@ -37,7 +38,13 @@ const router = createBrowserRouter([
     },
     {
       path: '/dashboard',
-      element: <DashboardLayout></DashboardLayout>
+      element: <DashboardLayout></DashboardLayout>,
+      children: [
+        {
+          path: '/dashboard/add-room',
+          element: <AddClassForm></AddClassForm>
+        }
+      ]
     }
   ]);
 
