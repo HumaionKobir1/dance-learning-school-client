@@ -1,16 +1,14 @@
 import './allClass.css'
 import ClassItems from '../Home/PopularClasses/ClassItems';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import Container from '../../components/Share/Container';
+import { getAllClass } from '../../api/classes';
 
 const AllClasses = () => {
   const [classes, setClasses] = useState([]);
   
-    useEffect(()=> {
-        fetch('allClass.json')
-        .then(res => res.json())
-        .then(data => setClasses(data))
-    }, [])
+  getAllClass()
+  .then(data => setClasses(data))
 
     return (
             <div className="pt-28">

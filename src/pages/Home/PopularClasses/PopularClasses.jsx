@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Container from "../../../components/Share/Container";
 import ClassItems from "./ClassItems";
 import { Link } from "react-router-dom";
+import { getAllClass } from "../../../api/classes";
 
 const PopularClass = () => {
     const [classes, setClasses] = useState([]);
   
-    useEffect(()=> {
-        fetch('allClass.json')
-        .then(res => res.json())
-        .then(data => setClasses(data.slice(0, 6)))
-    }, [])
+    getAllClass()
+    .then(data => setClasses(data.slice(0, 6)))
 
 
 

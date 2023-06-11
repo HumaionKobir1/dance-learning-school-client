@@ -1,6 +1,7 @@
 import  { useContext, useState } from 'react';
 import { TbFidgetSpinner } from 'react-icons/tb';
 import { AuthContext } from '../../providers/AuthProvider';
+import { toast } from 'react-hot-toast';
 const img_hosting_token = import.meta.env.VITE_Image_Upload_token;
 
 
@@ -62,6 +63,7 @@ const AddClassForm = () => {
       })
       .then(res => res.json())
       .then(data => {
+        toast.success('Add Class Successfully')
         console.log(data)
       })
       .catch(err => console.log(err))
