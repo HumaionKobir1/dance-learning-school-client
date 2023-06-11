@@ -8,6 +8,7 @@ import AllInstructor from "../pages/AllInstructor/AllInstructor";
 import DashboardLayout from "../layouts/DashboardLayout";
 import AddClassForm from "../components/Dashboard/AddClassForm";
 import PrivateRoute from "./PrivateRoute";
+import AllUsers from "../components/Dashboard/AllUsers";
 
 const router = createBrowserRouter([
     {
@@ -42,8 +43,12 @@ const router = createBrowserRouter([
       element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute> ,
       children: [
         {
-          path: '/dashboard/add-room',
+          path: '/dashboard/add-class',
           element: <PrivateRoute><AddClassForm></AddClassForm></PrivateRoute>
+        },
+        {
+          path: '/dashboard/all-users',
+          element: <PrivateRoute><AllUsers></AllUsers></PrivateRoute>
         }
       ]
     }

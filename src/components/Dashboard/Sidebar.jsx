@@ -6,11 +6,14 @@ import { FcSettings } from 'react-icons/fc'
 import { AiOutlineBars } from 'react-icons/ai'
 import { SiGoogleclassroom } from 'react-icons/si'
 import Logo from '../Share/Navebar/Logo'
+import { FaUsers } from 'react-icons/fa'
 const Sidebar = () => {
   const navigate = useNavigate()
   const { user, logOut } = useContext(AuthContext)
-
   const [isActive, setActive] = useState('false')
+
+  const isInstructor = false;
+  const isAdmin = true
   
   // Sidebar Responsive Handler
   const handleToggle = () => {
@@ -72,13 +75,15 @@ const Sidebar = () => {
           </div>
 
           {/* Nav Items */}
-          <div className='flex flex-col justify-between flex-1 mt-6'>
+          {
+            isInstructor ? <>
+            <div className='flex flex-col justify-between flex-1 mt-6'>
             <nav>
               <>
                 <hr />
                 {/* Menu Links */}
                 <NavLink
-                  to='add-room'
+                  to='add-class'
                   className={({ isActive }) =>
                     `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
                       isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
@@ -92,6 +97,76 @@ const Sidebar = () => {
               </>
             </nav>
           </div>
+            </>
+
+             : isAdmin ? 
+            
+            <>
+            <div className='flex flex-col justify-between flex-1 mt-6'>
+            <nav>
+              <>
+                <hr />
+                {/* Menu Links */}
+                <NavLink
+                  to='manage-class'
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
+                      isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
+                    }`
+                  }
+                >
+                  <SiGoogleclassroom className='w-5 h-5' />
+
+                  <span className='mx-4 font-medium'>Manage Classes</span>
+                </NavLink>
+              </>
+            </nav>
+          </div>
+
+          <div className='flex flex-col justify-between flex-1 -mt-4'>
+            <nav>
+              <>
+                {/* Menu Links */}
+                <NavLink
+                  to='all-users'
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
+                      isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
+                    }`
+                  }
+                >
+                  <FaUsers className='w-5 h-5' />
+
+                  <span className='mx-4 font-medium'>All Users</span>
+                </NavLink>
+              </>
+            </nav>
+          </div>
+            </>
+            :
+            <>
+            <div className='flex flex-col justify-between flex-1 mt-6'>
+            <nav>
+              <>
+                <hr />
+                {/* Menu Links */}
+                <NavLink
+                  to='dashboard/my-class'
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
+                      isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
+                    }`
+                  }
+                >
+                  <SiGoogleclassroom className='w-5 h-5' />
+
+                  <span className='mx-4 font-medium'>My Class</span>
+                </NavLink>
+              </>
+            </nav>
+          </div>
+            </>
+          }
         </div>
 
         <div>
