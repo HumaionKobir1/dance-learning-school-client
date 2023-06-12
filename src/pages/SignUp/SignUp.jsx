@@ -5,7 +5,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
 import {TbFidgetSpinner} from 'react-icons/tb'
-import { saveUser } from "../../api/Auth";
 
 const SignUp = () => {
     const { createUser, loading, setLoading, updateUserProfile, signInWithGoogle} = useContext(AuthContext);
