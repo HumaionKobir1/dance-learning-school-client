@@ -25,6 +25,21 @@ const AllUsers = () => {
         })
     }
 
+    const handleMakeInstructor = user =>{
+        console.log(user)
+        fetch(`http://localhost:5000/users/instructor/${user._id}`, {
+            method: 'PATCH'
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.modifiedCount){
+                refetch();
+                
+                toast.success(`${user.name} is an Instructor Now!`)
+            }
+        })
+    }
+
     const handleDelete = user => {
         console.log(user)
     }
@@ -58,7 +73,7 @@ const AllUsers = () => {
                             <td>{user.email}</td>
                             <td className="flex gap-2">
                                 {user.role === 'admin' ? 'admin' : <button onClick={()=>handleMakeAdmin(user)} className="btn btn-ghost btn-sm bg-orange-400"><FaUserShield></FaUserShield></button> }
-                                {user.role === 'instructor' ? 'Instructor' : <button onClick={()=>handleMakeAdmin(user)} className="btn btn-ghost btn-sm bg-orange-400">Instr</button>}
+                                {user.role === 'instructor' ? 'Instructor' : <button onClick={()=>handleMakeInstructor(user)} className="btn btn-ghost btn-sm bg-orange-400">Instr</button>}
                             </td>
                             <td><button onClick={()=>handleDelete(user)} className="btn btn-ghost btn-sm bg-red-600 text-white"><FaTrashAlt></FaTrashAlt></button>
 </td>
