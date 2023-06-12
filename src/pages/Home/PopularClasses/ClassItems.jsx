@@ -1,7 +1,55 @@
+import { useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
+import { toast } from "react-hot-toast";
+import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ClassItems = ({items}) => {
-    const {image, price, className, instructorName, availableSeat} = items;
+    const {image, price, className, instructorName, availableSeat, _id} = items;
+    const {user} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
 
+    const handleEnrollClass = items => {
+        console.log(items)
+        if(user){
+            const enrollClasses = {
+                classId: _id,
+                image,
+                price,
+                className,
+                instructorName
+
+            }
+            fetch('http://localhost:5000/enroll', {
+                method: 'POST',
+                headers: {
+                    'content-type' : 'application/json'
+                },
+                body: JSON.stringify(enrollClasses)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.insertedId){
+                    toast.success('You are Successfully Enrolled')
+                }
+            })
+        }
+        else{
+            Swal.fire({
+                title: 'Please login to order the food',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Login Now'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate('/login', {state: {from: location}});
+                }
+              })
+        }
+    }
     
     return (
         <div className="bg-gradient-to-br from-purple-200 to-slate-500-200 rounded-lg shadow-lg p-4">
@@ -15,8 +63,8 @@ const ClassItems = ({items}) => {
             <p className="text-gray-700 mb-2">Available Seats: {availableSeat}</p>
             <div className="flex items-center justify-between">
                 <p className="text-gray-700 font-bold text-lg">$ {price}</p>
-                <button className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
-                Book
+                <button onClick={()=>handleEnrollClass(items)} className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                Enroll
                 </button>
             </div>
         </div>
