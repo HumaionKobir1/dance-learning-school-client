@@ -7,7 +7,12 @@ import { AiOutlineBars } from 'react-icons/ai'
 import { SiGoogleclassroom } from 'react-icons/si'
 import Logo from '../Share/Navebar/Logo'
 import { FaUsers } from 'react-icons/fa'
+import useClassCart from '../../hook/useClassCart'
+
+
 const Sidebar = () => {
+  const [classCart] = useClassCart();
+  console.log(classCart)
   const navigate = useNavigate()
   const { user, logOut } = useContext(AuthContext)
   const [isActive, setActive] = useState('false')
@@ -160,7 +165,8 @@ const Sidebar = () => {
                 >
                   <SiGoogleclassroom className='w-5 h-5' />
 
-                  <span className='mx-4 font-medium'>My Class</span>
+                  <span className='mx-4 font-medium'>My Enroll Classes</span>
+                  <div className='badge badge-secondary'>{classCart?.length || 0 }</div>
                 </NavLink>
               </>
             </nav>
