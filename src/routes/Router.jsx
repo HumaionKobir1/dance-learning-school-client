@@ -9,6 +9,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import AddClassForm from "../components/Dashboard/AddClassForm";
 import PrivateRoute from "./PrivateRoute";
 import AllUsers from "../components/Dashboard/AllUsers";
+import MyClass from "../components/Dashboard/MyClass";
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
         {
           path: '/dashboard/all-users',
           element: <PrivateRoute><AllUsers></AllUsers></PrivateRoute>
+        },
+        {
+          path: '/dashboard/my-class',
+          element: <PrivateRoute><MyClass></MyClass> </PrivateRoute>
         }
       ]
     }

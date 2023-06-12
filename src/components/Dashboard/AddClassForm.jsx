@@ -46,7 +46,7 @@ const AddClassForm = () => {
         instructorName,
         instructorEmail,
         availableSeat,
-        price,
+        price: parseFloat(price),
         host: {
           name: user?.displayName,
           image: user?.photoURL,

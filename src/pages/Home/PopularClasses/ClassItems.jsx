@@ -3,19 +3,22 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
+import useClassCart from "../../../hook/useClassCart";
 
 const ClassItems = ({items}) => {
     const {image, price, className, instructorName, availableSeat, _id} = items;
     const {user} = useContext(AuthContext);
+    const [, refetch] = useClassCart();
     const navigate = useNavigate();
     const location = useLocation();
 
     const handleEnrollClass = items => {
-        console.log(items)
+        console.log(items);
         if(user){
             const enrollClasses = {
                 classId: _id,
                 image,
+                email: user.email,
                 price,
                 className,
                 instructorName
@@ -31,6 +34,7 @@ const ClassItems = ({items}) => {
             .then(res => res.json())
             .then(data => {
                 if(data.insertedId){
+                    refetch()
                     toast.success('You are Successfully Enrolled')
                 }
             })
