@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "../../../components/Share/Container";
 import ClassItems from "./ClassItems";
 import { Link } from "react-router-dom";
@@ -7,8 +7,10 @@ import { getAllClass } from "../../../api/classes";
 const PopularClass = () => {
     const [classes, setClasses] = useState([]);
   
+useEffect(() => {
     getAllClass()
     .then(data => setClasses(data.slice(0, 6)))
+}, [])
 
 
 
@@ -21,7 +23,7 @@ const PopularClass = () => {
             <div className="grid md:grid-cols-3 justify-between items-center gap-5 mt-6 md:mt-14">
                 {
                     classes.map(item => <ClassItems
-                        key={item.id}
+                        key={item._id}
                         items={item}
                     ></ClassItems>)
                 }

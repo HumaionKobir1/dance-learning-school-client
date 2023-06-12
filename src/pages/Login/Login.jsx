@@ -8,7 +8,6 @@ import './login.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import { toast } from 'react-hot-toast';
-import { saveUser } from '../../api/Auth';
 
 const Login = () => {
     const {signIn , loading, setLoading, signInWithGoogle} = useContext(AuthContext);
@@ -42,9 +41,29 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle()
         .then(result => {
-            console.log(result);
-            saveUser(result.user)
-            navigate(from, {replace: true});
+            const loggedUser = result.user;
+            console.log(loggedUser)
+            const saveUser = {
+                name: loggedUser.displayName,
+                email: loggedUser.email,
+                image: loggedUser.photoURL
+        }
+        // save user to db
+          fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify(saveUser)
+          })
+          .then(res => res.json())
+          .then(data => {
+            if(data.insertedId){
+                toast.success('Login successful')
+            }
+          })
+
+          navigate(from, {replace: true});
         })
         .catch(error => {
             setLoading(false);

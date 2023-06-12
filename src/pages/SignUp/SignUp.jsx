@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { FaEnvelope, FaEye, FaEyeSlash, FaImage, FaLock, FaUser } from "react-icons/fa";
+import { FaEnvelope, FaEye, FaEyeSlash, FaLock, FaUser } from "react-icons/fa";
 import { FcGoogle } from 'react-icons/fc'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -11,6 +11,8 @@ const SignUp = () => {
     const { createUser, loading, setLoading, updateUserProfile, signInWithGoogle} = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const [passwordError, setPasswordError] = useState('');
+    const img_hosting_token = import.meta.env.VITE_Image_Upload_token;
+
 
 
     const navigate = useNavigate();
@@ -22,14 +24,13 @@ const SignUp = () => {
     };
 
     const handleSubmit = event => {
-        event.preventDefault();
-        const form = event.target;
-        const name = form.username.value;
-        const email = form.email.value;
-        const password = form.password.value;
-        const image = form.image.value;
-        console.log(name, email, password, image)
-        setPasswordError(' ')
+    event.preventDefault();
+    const form = event.target;
+    const name = form.username.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(name)
+    setPasswordError(' ')
 
         if (password.length < 6) {
             setPasswordError('Password must be at least 6 characters long.')
@@ -45,27 +46,94 @@ const SignUp = () => {
             setPasswordError('Password must contain at least one special character.')
           }
 
-        createUser(email, password)
-        .then(result => {
-            console.log(result);
-            saveUser(result.user)
+    // Image Upload
+    const image = form.image.files[0]
+    const formData = new FormData();
+    formData.append('image', image);
+    const url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`
 
-            updateUserProfile(name, image)
-            toast.success('User create successful')
-            navigate(from, {replace: true});
+    fetch(url, {
+      method: 'POST',
+      body: formData,
+    })
+    .then(res => res.json())
+    .then(imageData => {
+     const imageUrl = (imageData.data.display_url)
+      createUser(email, password)
+      .then(result => {        
+        console.log(result);
+        updateUserProfile(name, imageUrl)
+        .then(() => {
+        const saveUser = {
+                name: name,
+                email: email,
+                image: imageUrl
+        }
+        // save user to db
+          fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify(saveUser)
+          })
+          .then(res => res.json())
+          .then(data => {
+            if(data.insertedId){
+                toast.success('SignUp successful')
+            }
+          })
+
+          navigate(from, {replace: true});
         })
-        .catch(err => {
-            console.log(err);
+        .catch(error => {
             setLoading(false);
+            console.log(error.message)
+            toast.error(error.message);
+            
         })
-    }
+      })
+      .catch(error => {
+          setLoading(false);
+          console.log(error.message)
+          toast.error(error.message);
+          
+      })
+
+    })
+    .catch(err => {
+      setLoading(false);
+      console.log(err.message)
+      toast.error(err.message);
+    })
+    
+  }
 
     // Handle Google signIn
     const handleGoogleSignIn = () => {
         signInWithGoogle()
         .then(result => {
-            console.log(result);
-            saveUser(result.user)
+            const loggedUser = result.user;
+            console.log(loggedUser)
+            const saveUser = {
+                name: loggedUser.displayName,
+                email: loggedUser.email,
+                image: loggedUser.photoURL
+        }
+        // save user to db
+          fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify(saveUser)
+          })
+          .then(res => res.json())
+          .then(data => {
+            if(data.insertedId){
+                toast.success('Login successful')
+            }
+          })
             navigate(from, {replace: true});
         })
         .catch(error => {
@@ -110,22 +178,16 @@ const SignUp = () => {
                     </div>
 
                     <div>
-                    <label htmlFor="photo-url" className="sr-only">
-                        Profile Photo URL
+                    <label htmlFor='image' className='block mb-2 text-sm'>
+                        Select Image:
                     </label>
-                    <div className="relative mt-3">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <FaImage className="h-5 w-5 text-gray-200" aria-hidden="true" />
-                        </div>
-                        <input
-                        id="photo-url"
-                        name="image"
-                        type="text"
-                        autoComplete="off"
-                        className="appearance-none bg-black opacity-70  rounded-none relative block w-full px-3 py-3 pl-10 placeholder-gray-200 border border-gray-300 text-gray-200 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                        placeholder="Profile Photo URL"
-                        />
-                    </div>
+                    <input
+                        required
+                        type='file'
+                        id='image'
+                        name='image'
+                        accept='image/*'
+                    />
                     </div>
 
                     <div>

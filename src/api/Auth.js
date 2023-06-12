@@ -5,8 +5,8 @@ export const saveUser = user => {
         image: user.photoURL
 
     }
-    fetch(`http://localhost:5000/users/${user?.email}`, {
-        method: 'PUT',
+    fetch(`${import.meta.env.VITE_API_URL}/users`, {
+        method: 'POST',
         headers: {
             'content-type' : 'application/json'
         },
@@ -15,3 +15,4 @@ export const saveUser = user => {
     .then(res => res.json())
     .then(data => console.log(data))
 }
+
