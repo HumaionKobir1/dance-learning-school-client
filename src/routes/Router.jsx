@@ -10,6 +10,7 @@ import AddClassForm from "../components/Dashboard/AddClassForm";
 import PrivateRoute from "./PrivateRoute";
 import AllUsers from "../components/Dashboard/AllUsers";
 import MyClass from "../components/Dashboard/MyClass";
+import ManageClasses from "../components/Dashboard/ManageClasses";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
         {
           path: '/dashboard/my-class',
           element: <PrivateRoute><MyClass></MyClass> </PrivateRoute>
+        },
+        {
+          path: '/dashboard/manage-class',
+          element: <PrivateRoute><ManageClasses></ManageClasses> </PrivateRoute>
         }
       ]
     }

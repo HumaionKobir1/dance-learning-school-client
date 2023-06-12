@@ -18,7 +18,8 @@ const Sidebar = () => {
   const [isActive, setActive] = useState('false')
 
   const isInstructor = false;
-  const isAdmin = false;
+  const isAdmin = true;
+  
   
   // Sidebar Responsive Handler
   const handleToggle = () => {

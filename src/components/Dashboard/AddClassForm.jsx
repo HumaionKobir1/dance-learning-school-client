@@ -51,7 +51,8 @@ const AddClassForm = () => {
           name: user?.displayName,
           image: user?.photoURL,
           email: user?.email,
-        }
+        },
+        status: 'Pending'
       }
 
       fetch(`${import.meta.env.VITE_API_URL}/classes`, {
