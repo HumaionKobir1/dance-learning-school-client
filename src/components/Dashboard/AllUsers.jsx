@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
 import { Helmet } from "react-helmet";
 import { toast } from "react-hot-toast";
 import { FaTrashAlt, FaUserShield } from "react-icons/fa";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const AllUsers = () => {
+    const {user} = useContext(AuthContext);
     const {data: users = [], refetch} = useQuery(['users'], async() => {
         const res =await fetch('http://localhost:5000/users')
         return res.json()
@@ -61,6 +64,7 @@ const AllUsers = () => {
                         <th>Email</th>
                         <th>Role</th>
                         <th>Action</th>
+                        <th>Remove User</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -71,6 +75,7 @@ const AllUsers = () => {
                             <th>{index + 1}</th>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
+                            <td>{user.role}</td>
                             <td className="flex gap-2">
                                 {user.role === 'admin' ? 'admin' : <button onClick={()=>handleMakeAdmin(user)} className="btn btn-ghost btn-sm bg-orange-400"><FaUserShield></FaUserShield></button> }
                                 {user.role === 'instructor' ? 'Instructor' : <button onClick={()=>handleMakeInstructor(user)} className="btn btn-ghost btn-sm bg-orange-400">Instr</button>}
