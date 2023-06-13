@@ -14,12 +14,11 @@ const Sidebar = () => {
   const [classCart] = useClassCart();
   console.log(classCart)
   const navigate = useNavigate()
-  const { user, logOut } = useContext(AuthContext)
+  const { user, logOut, role } = useContext(AuthContext)
   const [isActive, setActive] = useState('false')
+  const isInstructor = role === 'instructor';
+  const isAdmin = role === 'admin';
 
-  const isInstructor = false;
-  const isAdmin = true;
-  
   
   // Sidebar Responsive Handler
   const handleToggle = () => {
