@@ -7,7 +7,7 @@ import useClassCart from "../../../hook/useClassCart";
 
 const ClassItems = ({items}) => {
     const {image, price, className, instructorName, availableSeat, _id} = items;
-    const {user} = useContext(AuthContext);
+    const {user, role} = useContext(AuthContext);
     const [, refetch] = useClassCart();
     const navigate = useNavigate();
     const location = useLocation();
@@ -67,7 +67,7 @@ const ClassItems = ({items}) => {
             <p className="text-gray-700 mb-2">Available Seats: {availableSeat}</p>
             <div className="flex items-center justify-between">
                 <p className="text-gray-700 font-bold text-lg">$ {price}</p>
-                <button onClick={()=>handleEnrollClass(items)} className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                <button disabled={role === 'instructor' && 'admin'} onClick={()=>handleEnrollClass(items)} className="btn bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                 Enroll
                 </button>
             </div>
