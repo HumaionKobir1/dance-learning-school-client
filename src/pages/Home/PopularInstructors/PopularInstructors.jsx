@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import Instructor from "./Instructor";
 import Container from "../../../components/Share/Container";
+import { Link } from "react-router-dom";
 
 const PopularInstructors = () => {
     const [instructors, setInstructors] = useState([]);
 
     useEffect(()=> {
-        fetch('allInstructor.json')
+        fetch('http://localhost:5000/instructor')
         .then(res => res.json())
         .then(data => setInstructors(data.slice(0, 6)))
         
@@ -26,9 +27,9 @@ const PopularInstructors = () => {
                     }
                 </div>
                 <div className="flex justify-center">
-                    <button className="bg-gradient-to-r mt-5 w-48 mx-auto from-purple-950 to-gray-800 hover:from-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded shadow-lg">
-                    View All Instructors
-                    </button>
+                <Link to='/allInstructor' className="bg-gradient-to-r mt-5 w-48 mx-auto from-purple-950 to-gray-800 hover:from-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded shadow-lg">
+                    View All Instructor
+                    </Link>
                 </div>
             </Container>
         </div>
