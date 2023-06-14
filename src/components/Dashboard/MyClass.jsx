@@ -27,6 +27,7 @@ const MyClass = () => {
                 .then(data => {
                     if(data.deletedCount > 0){
                         refetch()
+                        
                         Swal.fire(
                             'Deleted!',
                             'Your file has been deleted.',

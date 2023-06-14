@@ -1,22 +1,32 @@
-import { useEffect, useState } from "react";
 import Container from "../Share/Container";
-import { getAllClass } from "../../api/classes";
+import { toast } from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import { updateClassStatus } from "../../api/enrolled";
 
 const ManageClasses = () => {
-    const [classes, setClasses] = useState([]);
   
-  
+  const {data: classes = [], refetch} = useQuery(['classes'], async() => {
+    const res =await fetch('http://localhost:5000/classes')
+    return res.json()
+})
 
-  useEffect(()=> {
-    getAllClass()
-    .then(data => setClasses(data))
-  }, [])
 
   const handleApprovedClass = item => {
-    console.log(item)
+    updateClassStatus(item._id, 'approved')
+    .then(data => {
+      console.log(data)
+      refetch()
+      toast('approved successful')
+    })
+    
   }
   const handleDenyClass = item => {
-    console.log(item)
+    updateClassStatus(item._id, 'deny')
+    .then(data => {
+      console.log(data)
+      refetch()
+      toast('deny successful')
+    })
   }
   const handleFeedbackClass = item => {
     console.log(item)
@@ -40,7 +50,7 @@ const ManageClasses = () => {
                           <p className="text-gray-700 mb-2">{item.instructorName}</p>
                           <div className="flex justify-between">
                             <p className="text-gray-700 mb-2">Available Seats: {item.availableSeat}</p>
-                            <p>Status: <span className="bg-purple-900 text-white px-1">Pending</span></p>
+                            <p>Status: <span className="bg-purple-900 text-white px-1">{item.status}</span></p>
                           </div>
                           <div className="flex items-center justify-between">
                               <p className="text-gray-700 font-bold text-lg">$ {item.price}</p>

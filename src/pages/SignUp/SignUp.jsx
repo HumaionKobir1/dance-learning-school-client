@@ -66,7 +66,8 @@ const SignUp = () => {
         const saveUser = {
                 name: name,
                 email: email,
-                image: imageUrl
+                image: imageUrl,
+                role: 'student'
         }
         // save user to db
           fetch('http://localhost:5000/users', {
@@ -117,7 +118,8 @@ const SignUp = () => {
             const saveUser = {
                 name: loggedUser.displayName,
                 email: loggedUser.email,
-                image: loggedUser.photoURL
+                image: loggedUser.photoURL,
+                role: 'student'
         }
         // save user to db
           fetch('http://localhost:5000/users', {

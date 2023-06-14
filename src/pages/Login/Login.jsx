@@ -46,7 +46,8 @@ const Login = () => {
             const saveUser = {
                 name: loggedUser.displayName,
                 email: loggedUser.email,
-                image: loggedUser.photoURL
+                image: loggedUser.photoURL,
+                role: 'student'
         }
         // save user to db
           fetch('http://localhost:5000/users', {

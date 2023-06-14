@@ -3,6 +3,7 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
+import { updateStatus } from "../../../api/enrolled";
 import useClassCart from "../../../hook/useClassCart";
 
 const ClassItems = ({items}) => {
@@ -34,8 +35,12 @@ const ClassItems = ({items}) => {
             .then(res => res.json())
             .then(data => {
                 if(data.insertedId){
-                    refetch()
-                    toast.success('You are Successfully Enrolled')
+                    updateStatus(items._id, true)
+                    .then(data => {
+                        refetch()
+                        console.log(data)
+                        toast.success('You are Successfully Enrolled')
+                    })
                 }
             })
         }
@@ -67,7 +72,7 @@ const ClassItems = ({items}) => {
             <p className="text-gray-700 mb-2">Available Seats: {availableSeat}</p>
             <div className="flex items-center justify-between">
                 <p className="text-gray-700 font-bold text-lg">$ {price}</p>
-                <button disabled={role === 'instructor' && 'admin'} onClick={()=>handleEnrollClass(items)} className="btn bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                <button disabled={role === 'admin' || role === 'instructor'  } onClick={()=>handleEnrollClass(items)} className="btn bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                 Enroll
                 </button>
             </div>

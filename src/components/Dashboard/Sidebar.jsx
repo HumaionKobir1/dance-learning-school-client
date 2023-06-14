@@ -18,6 +18,9 @@ const Sidebar = () => {
   const [isActive, setActive] = useState('false')
   const isInstructor = role === 'instructor';
   const isAdmin = role === 'admin';
+  const isStudent = role === 'student'
+  
+  console.log(isInstructor, isAdmin, isStudent)
 
   
   // Sidebar Responsive Handler

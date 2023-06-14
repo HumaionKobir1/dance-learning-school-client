@@ -32,9 +32,9 @@ const AllUsers = () => {
         })
         .then(res => res.json())
         .then(data => {
+            console.log(data)
             if(data.modifiedCount){
                 refetch();
-                
                 toast.success(`${user.name} is an Instructor Now!`)
             }
         })
