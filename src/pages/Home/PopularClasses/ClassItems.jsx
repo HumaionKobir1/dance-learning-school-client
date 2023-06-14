@@ -61,11 +61,11 @@ const ClassItems = ({items}) => {
     }
     
     return (
-        <div className="bg-gradient-to-br from-purple-200 to-slate-500-200 rounded-lg shadow-lg p-4">
+        <div className="bg-gradient-to-br group from-purple-200 to-slate-500-200 rounded-lg shadow-lg p-4">
             <img
                 src={image}
                 alt="Card Image"
-                className="w-full h-auto rounded-lg mb-4"
+                className="w-full group-hover:scale-105 h-auto rounded-lg mb-4"
             />
             <h2 className="text-2xl font-bold text-purple-900 mb-2">{className}</h2>
             <p className="text-gray-700 mb-2">{instructorName}</p>

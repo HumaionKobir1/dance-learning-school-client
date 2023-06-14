@@ -7,7 +7,11 @@ export const getAllClass = async () => {
 
 
 export const getClasses = async email => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/classes/${email}`)
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/classes/${email}`, {
+        headers: {
+            authorization: `bearer ${localStorage.getItem('access-token')}`
+        },
+    })
     const data = await response.json()
     return data
   }

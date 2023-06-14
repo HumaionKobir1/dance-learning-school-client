@@ -6,7 +6,6 @@ import useClassCart from "../../hook/useClassCart";
 
 const MyClass = () => {
     const [classCart, refetch] = useClassCart();
-    const total = classCart.reduce((sum, item) => item.price + sum, 0);
 
     const handleDelete = (item) => {
         Swal.fire({
@@ -27,7 +26,6 @@ const MyClass = () => {
                 .then(data => {
                     if(data.deletedCount > 0){
                         refetch()
-                        
                         Swal.fire(
                             'Deleted!',
                             'Your file has been deleted.',
@@ -46,10 +44,10 @@ const MyClass = () => {
                 <title>Dance Learning || My Class</title>
             </Helmet>
             <div className="bg-white w-full p-8 border-2">
-                <div className="uppercase flex justify-between border p-2">
-                    <h3 className="md:text-2xl ">Total Class: {classCart.length}</h3>
-                    <h3 className="md:text-2xl text-lg">Total Price: ${total}</h3>
-                    <button className="btn btn-sm border-none md:mr-10 bg-[#D1A054]"><Link to='/dashboard/payment'>pay</Link> </button>
+                <div className="uppercase flex justify-center border p-2">
+                    <h3 className="md:text-2xl ">Your Selected Classes: {classCart.length}</h3>
+                    {/* <h3 className="md:text-2xl text-lg">Total Price: ${total}</h3> */}
+                    {/* <button className="btn btn-sm border-none md:mr-10 bg-[#D1A054]"><Link to='/dashboard/payment'>pay</Link> </button> */}
                 </div>
                 
                 <div className="overflow-x-auto w-full mt-5">
@@ -67,6 +65,8 @@ const MyClass = () => {
                             <th>Instructor Name</th>
                             <th>Price</th>
                             <th>Action</th>
+                            <th>Payment</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -94,9 +94,14 @@ const MyClass = () => {
                                 <td className="text-start">
                                     ${item.price}
                                 </td>
-                                <th>
+                                <td>
                                 <button onClick={()=>handleDelete(item)} className="btn btn-ghost btn-sm bg-red-600 text-white"><FaTrashAlt></FaTrashAlt></button>
-                                </th>
+                                </td>
+
+                                <td>
+                                    <button className="btn btn-sm border-none md:mr-10 bg-[#D1A054]"><Link to='payment'>pay</Link> </button>
+                                </td>
+
                             </tr>)
                         }
                         

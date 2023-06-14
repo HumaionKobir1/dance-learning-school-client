@@ -13,6 +13,7 @@ import MyClass from "../components/Dashboard/MyClass";
 import ManageClasses from "../components/Dashboard/ManageClasses";
 import MyClassesInstructor from "../components/Dashboard/MyClassesInstructor";
 import ErrorPage from "../pages/ErrorPage";
+import Payment from "../components/Dashboard/Payment";
 
 const router = createBrowserRouter([
     {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
         {
           path: '/dashboard/my-classes',
           element: <MyClassesInstructor></MyClassesInstructor>
+        },
+        {
+          path: '/dashboard/my-class/payment',
+          element: <Payment></Payment>
         }
       ]
     }
