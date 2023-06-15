@@ -15,6 +15,7 @@ import MyClassesInstructor from "../components/Dashboard/MyClassesInstructor";
 import ErrorPage from "../pages/ErrorPage";
 import Payment from "../components/Dashboard/Payment";
 import PaymentHistory from "../components/Dashboard/PaymentHistory";
+import MyEnrollClasses from "../components/Dashboard/MyEnrollClassess";
 
 const router = createBrowserRouter([
     {
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
         {
           path: '/dashboard/my-payments',
           element: <PaymentHistory></PaymentHistory>
+        },
+        {
+          path: '/dashboard/my-enroll-class',
+          element: <MyEnrollClasses></MyEnrollClasses>
         }
       ]
     }

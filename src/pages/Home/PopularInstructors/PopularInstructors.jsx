@@ -27,7 +27,7 @@ const PopularInstructors = () => {
                     }
                 </div>
                 <div className="flex justify-center">
-                <Link to='/allInstructor' className="bg-gradient-to-r mt-5 w-48 mx-auto from-purple-950 to-gray-800 hover:from-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded shadow-lg">
+                <Link to='/allInstructor' className="bg-gradient-to-r mt-5 mb-2 w-48 mx-auto from-purple-950 to-gray-800 hover:from-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded shadow-lg">
                     View All Instructor
                     </Link>
                 </div>
