@@ -18,7 +18,7 @@ const MyClass = () => {
             confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/enroll/${item._id}`, {
+                fetch(`https://dance-learning-school-server-gamma.vercel.app/enroll/${item._id}`, {
                     method: 'DELETE',
                     
                 })
@@ -34,8 +34,8 @@ const MyClass = () => {
                     }
                 })
                 
-        }
-    })
+            }
+        })
     }
     return (
         <div className="w-full mx-auto bg-white rounded-lg shadow-lg max-h-full md:p-10">

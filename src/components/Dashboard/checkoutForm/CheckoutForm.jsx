@@ -82,9 +82,9 @@ const CheckoutForm = ({price, classCart}) => {
                 date: new Date(),
                 quantity: classCart.length,
                 classCartItems: classCart.map(item => item._id),
-                menuItems: classCart.map(item => item.menuItemId),
+                classItems: classCart.map(item => item.classId),
                 status: 'service pending',
-                itemNames: classCart.map(item => item.name)
+                classNames: classCart.map(item => item.name)
             }
             axiosSecure.post('/payments', payment)
                 .then(res => {
@@ -115,7 +115,7 @@ const CheckoutForm = ({price, classCart}) => {
                 }}
             />
             <button className="btn p-2 rounded-lg flex justify-center mt-5 btn-primary w-72 mx-auto" type="submit" disabled={!stripe || !clientSecret || processing}>
-                Pay
+                Pay: ${price}
             </button>
             </form>
             {

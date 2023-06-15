@@ -9,7 +9,7 @@ const useClassCart = () => {
     const {refetch, data: classCart = []} = useQuery({
         queryKey: ['classCart', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/enroll?email=${user?.email}`, {
+            const res = await fetch(`https://dance-learning-school-server-gamma.vercel.app/enroll?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${token}`
                 }

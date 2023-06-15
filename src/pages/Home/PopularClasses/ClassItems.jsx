@@ -25,7 +25,7 @@ const ClassItems = ({items}) => {
                 instructorName
 
             }
-            fetch('http://localhost:5000/enroll', {
+            fetch('https://dance-learning-school-server-gamma.vercel.app/enroll', {
                 method: 'POST',
                 headers: {
                     'content-type' : 'application/json'

@@ -6,7 +6,7 @@ import { updateClassStatus } from "../../api/enrolled";
 const ManageClasses = () => {
   
   const {data: classes = [], refetch} = useQuery(['classes'], async() => {
-    const res =await fetch('http://localhost:5000/classes')
+    const res =await fetch('https://dance-learning-school-server-gamma.vercel.app/classes')
     return res.json()
 })
 

@@ -50,7 +50,7 @@ const Login = () => {
                 role: 'student'
         }
         // save user to db
-          fetch('http://localhost:5000/users', {
+          fetch('https://dance-learning-school-server-gamma.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type' : 'application/json'
