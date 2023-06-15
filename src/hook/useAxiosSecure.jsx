@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useAuth from './useAuth';
 
 const axiosSecure = axios.create({
-    baseURL: 'https://dance-learning-school-server-gamma.vercel.app', 
+    baseURL: 'https://dance-learning-school-server-humaionkobir341-gmailcom.vercel.app', 
   });
 
 const useAxiosSecure = () => {

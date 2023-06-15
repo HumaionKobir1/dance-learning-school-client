@@ -2,6 +2,8 @@ import { useContext, useState } from 'react';
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import {TbFidgetSpinner} from 'react-icons/tb'
 import { FcGoogle } from 'react-icons/fc'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 import './login.css'
@@ -10,6 +12,7 @@ import { AuthContext } from '../../providers/AuthProvider';
 import { toast } from 'react-hot-toast';
 
 const Login = () => {
+    AOS.init()
     const {signIn , loading, setLoading, signInWithGoogle} = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate()
@@ -75,6 +78,7 @@ const Login = () => {
 
     return (
         <div
+            data-aos="zoom-in"
             className="relative bg-img flex items-center justify-center h-screen"
             
             >

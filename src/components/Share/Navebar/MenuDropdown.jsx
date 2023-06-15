@@ -5,8 +5,11 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../../providers/AuthProvider'
 
 const MenuDropdown = () => {
-  const {user, logOut} = useContext(AuthContext);
+  const {user, logOut, role} = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false)
+  const isInstructor = role === 'instructor';
+  const isAdmin = role === 'admin';
+  
   const toggleOpen = useCallback(() => {
     setIsOpen(value => !value)
   }, [])
@@ -32,7 +35,7 @@ const MenuDropdown = () => {
           {user ? (
               <>
               <Link
-                  to='/dashboard'
+                  to={isAdmin ? '/dashboard/manage-class' : isInstructor ? '/dashboard/add-class' : '/dashboard/my-class'}
                   className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
                 >
                   Dashboard

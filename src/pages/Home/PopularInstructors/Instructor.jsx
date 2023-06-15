@@ -1,8 +1,11 @@
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Instructor = ({detailsIn}) => {
+    AOS.init()
     const {name, image, email} = detailsIn;
     return (
-        <div className="bg-gradient-to-br group from-purple-200 to-slate-500-200 rounded-lg shadow-lg p-4">
+        <div data-aos="flip-left" className="bg-gradient-to-br group from-purple-200 to-slate-500-200 rounded-lg shadow-lg p-4">
         <img
             src={image}
             alt="Card Image"

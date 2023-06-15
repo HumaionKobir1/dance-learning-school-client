@@ -5,7 +5,8 @@ const MyEnrollClasses = () => {
     return (
         <EmptyState
                 message={'No Class Data Available!'}
-                address={'/dashboard/add-classes'}
+                address={'/'}
+                name={'Back Home'}
         ></EmptyState>
     )   
 

@@ -53,7 +53,7 @@ const AllUsers = () => {
             confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/users/${user._id}`, {
+                fetch(`https://dance-learning-school-server-humaionkobir341-gmailcom.vercel.app/users/${user._id}`, {
                     method: 'DELETE',
                     
                 })

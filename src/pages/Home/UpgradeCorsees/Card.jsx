@@ -1,9 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Card = ({card}) => {
     const {title, img, description, id} = card;
-    
+    AOS.init()
     const [selectedId, setSelectedId] = useState(null)
 
  
@@ -11,7 +13,7 @@ const Card = ({card}) => {
   return (
     <>
     
-    <motion.div layoutId={card.id} onClick={() => setSelectedId(id)}>
+    <motion.div data-aos="slide-up" layoutId={card.id} onClick={() => setSelectedId(id)}>
     <img
         className="w-full h-64 object-cover"
         src={img}
@@ -21,7 +23,7 @@ const Card = ({card}) => {
     <motion.h2 className="text-gray-700 text-base">{description}</motion.h2>
     </motion.div>
 
-    <AnimatePresence>
+    <AnimatePresence data-aos="slide-up">
     {selectedId && (
         <motion.div layoutId={selectedId}>
         <img src={img} alt="" />

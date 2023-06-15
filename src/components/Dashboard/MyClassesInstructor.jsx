@@ -47,7 +47,8 @@ const MyClassesInstructor = () => {
         ) : (
             <EmptyState
                 message={'No Class Data Available!'}
-                address={'/dashboard/add-classes'}
+                address={'/dashboard/add-class'}
+                name={'Add Class'}
             ></EmptyState>
         )}
         </>

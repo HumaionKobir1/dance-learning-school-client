@@ -4,8 +4,11 @@ import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import useClassCart from "../../../hook/useClassCart";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const ClassItems = ({items}) => {
+    AOS.init()
     const {image, price, className, instructorName, availableSeat, _id} = items;
     const {user, role} = useContext(AuthContext);
     const [, refetch] = useClassCart();
@@ -56,7 +59,7 @@ const ClassItems = ({items}) => {
     }
     
     return (
-        <div className="bg-gradient-to-br group from-purple-200 to-slate-500-200 rounded-lg shadow-lg p-4">
+        <div data-aos="zoom-in" className="bg-gradient-to-br group from-purple-200 to-slate-500-200 rounded-lg shadow-lg p-4">
             <img
                 src={image}
                 alt="Card Image"

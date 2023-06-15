@@ -5,8 +5,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
 import {TbFidgetSpinner} from 'react-icons/tb'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 
 const SignUp = () => {
+    AOS.init()
     const { createUser, loading, setLoading, updateUserProfile, signInWithGoogle} = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const [passwordError, setPasswordError] = useState('');
@@ -146,6 +150,7 @@ const SignUp = () => {
 
     return (
         <div
+            data-aos="zoom-in"
             className="relative bg-img flex items-center justify-center h-screen"
             
             >

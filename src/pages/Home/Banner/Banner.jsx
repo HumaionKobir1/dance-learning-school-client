@@ -24,7 +24,7 @@ const Banner = () => {
             
             <SwiperSlide>
                 <Container>
-                    <div className="rounded-lg shadow-lg md:p-8 py-5 px-3 md:flex gap-3 justify-center items-center md:mt-0 mt-14">
+                    <div className="rounded-lg shadow-lg md:p-8 py-5 px-3 md:flex gap-3 justify-center items-center md:mt-0 mt-8">
                     <div className="w-full">
                         <Slide>
                             <h1 className='md:text-6xl text-center md:text-start text-4xl font-bold text-cyan-500 uppercase'>Let's Dance</h1>
