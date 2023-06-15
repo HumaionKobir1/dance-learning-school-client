@@ -40,7 +40,7 @@ const router = createBrowserRouter([
         {
           path: '/allInstructor',
           element: <AllInstructor></AllInstructor>
-        }
+        },
         
       ]
     },

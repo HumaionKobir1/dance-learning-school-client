@@ -2,9 +2,11 @@ import Container from "../Share/Container";
 import { toast } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import { updateClassStatus } from "../../api/enrolled";
+import { useState } from "react";
 
 const ManageClasses = () => {
-  
+  const [feedbackText, setFeedbackText] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const {data: classes = [], refetch} = useQuery(['classes'], async() => {
     const res =await fetch('https://dance-learning-school-server-gamma.vercel.app/classes')
     return res.json()
@@ -28,9 +30,29 @@ const ManageClasses = () => {
       toast('deny successful')
     })
   }
+
   const handleFeedbackClass = item => {
-    console.log(item)
-  }
+    console.log(item);
+    setShowModal(true);
+  };
+
+  const handleSubmitFeedback = (item) => {
+    updateClassStatus(item._id, feedbackText)
+    .then(data => {
+      console.log(data)
+      refetch()
+      toast(' successful')
+    })
+    console.log(feedbackText);
+    // Reset the feedback input and close the modal
+    setFeedbackText('');
+    setShowModal(false);
+  };
+
+  const handleCancelFeedback = () => {
+    // Reset the feedback input and close the modal
+    setShowModal(false);
+  };
 
     return (
         <div className="pt-5">
@@ -63,15 +85,44 @@ const ManageClasses = () => {
                               <button onClick={()=>handleDenyClass(item)} className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                               Deny
                               </button>
-                              <button onClick={()=>handleFeedbackClass(item)} className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                              <button onClick={handleFeedbackClass} className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                               Send feedback
                               </button>
+                              {showModal && (
+                                <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center">
+                                  <div className="bg-white rounded-lg p-4">
+                                    <h3 className="text-2xl font-bold mb-4">Provide Feedback</h3>
+                                    <input
+                                      type="text"
+                                      value={feedbackText}
+                                      onChange={(e) => setFeedbackText(e.target.value)}
+                                      className="border border-gray-300 px-3 py-2 rounded-lg mb-4 w-full"
+                                      placeholder="Enter your feedback"
+                                    />
+                                    <div className="flex justify-between">
+                                      <button
+                                        onClick={()=>handleSubmitFeedback(item)}
+                                        className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mr-2"
+                                      >
+                                        Submit
+                                      </button>
+                                      <button
+                                        onClick={handleCancelFeedback}
+                                        className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded"
+                                      >
+                                        Cancel
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
                           </div>
                       </div>)
                       }
                   </div>
                   
               </Container>
+              
           </div>
     );
 };
