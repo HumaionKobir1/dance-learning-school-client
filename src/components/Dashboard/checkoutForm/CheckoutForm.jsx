@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 
 const CheckoutForm = ({price, refetch, classCart}) => {
     const {user} = useContext(AuthContext);
-    const stripe = useStripe('pk_test_51NETPuB9B9Ycv5F9H1vLDTjnKJ9Emytr1V98rYnGg7nlqLHt6QySQli0UEUJaxb3uINN40E9JS9fpL71cTMlX6aR00d6K6182B');
+    const stripe = useStripe('');
     const elements = useElements();
     const [cardError, setCardError] = useState('');
     const [axiosSecure] = useAxiosSecure();
