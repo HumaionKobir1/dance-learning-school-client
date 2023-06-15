@@ -6,7 +6,7 @@ import { FcSettings } from 'react-icons/fc'
 import { AiOutlineBars } from 'react-icons/ai'
 import { SiGoogleclassroom } from 'react-icons/si'
 import Logo from '../Share/Navebar/Logo'
-import { FaUsers } from 'react-icons/fa'
+import { FaMoneyCheck, FaUsers } from 'react-icons/fa'
 import useClassCart from '../../hook/useClassCart'
 
 
@@ -183,6 +183,19 @@ const Sidebar = () => {
 
                   <span className='mx-4 font-medium'>My Enroll Classes</span>
                   <div className='badge badge-secondary'>{classCart?.length || 0 }</div>
+                </NavLink>
+
+                <NavLink
+                  to='my-payments'
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
+                      isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
+                    }`
+                  }
+                >
+                  <FaMoneyCheck className='w-5 h-5' />
+
+                  <span className='mx-4 font-medium'>My Payment History</span>
                 </NavLink>
               </>
             </nav>

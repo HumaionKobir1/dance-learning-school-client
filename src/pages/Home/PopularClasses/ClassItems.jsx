@@ -3,7 +3,6 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
-import { updateStatus } from "../../../api/enrolled";
 import useClassCart from "../../../hook/useClassCart";
 
 const ClassItems = ({items}) => {
@@ -35,12 +34,8 @@ const ClassItems = ({items}) => {
             .then(res => res.json())
             .then(data => {
                 if(data.insertedId){
-                    updateStatus(items._id, true)
-                    .then(data => {
-                        refetch()
-                        console.log(data)
-                        toast.success('You are Successfully Enrolled')
-                    })
+                    toast.success('You are Successfully Enrolled')
+                    refetch()
                 }
             })
         }

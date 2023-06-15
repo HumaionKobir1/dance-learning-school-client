@@ -4,7 +4,7 @@ import CheckoutForm from "./checkoutForm/CheckoutForm";
 import useClassCart from "../../hook/useClassCart";
 const stripePromise = loadStripe(`${import.meta.env.VITE_Payment_Gateway}`)
 const Payment = () => {
-    const [classCart] = useClassCart();
+    const [classCart, refetch] = useClassCart();
     const total = classCart.reduce((sum, item) => sum + item.price, 0);
 
     console.log(classCart)
@@ -12,7 +12,7 @@ const Payment = () => {
         <div className="w-full md:p-20 p-5">
             
             <Elements stripe={stripePromise}>
-                <CheckoutForm price={total} classCart={classCart}></CheckoutForm>
+                <CheckoutForm refetch={refetch} price={total} classCart={classCart}></CheckoutForm>
             </Elements>
         </div>
         

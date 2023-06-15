@@ -3,8 +3,10 @@ import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
+import { updateStatus } from "../../../api/enrolled";
+import { toast } from "react-hot-toast";
 
-const CheckoutForm = ({price, classCart}) => {
+const CheckoutForm = ({price, refetch, classCart}) => {
     const {user} = useContext(AuthContext);
     const stripe = useStripe('pk_test_51NETPuB9B9Ycv5F9H1vLDTjnKJ9Emytr1V98rYnGg7nlqLHt6QySQli0UEUJaxb3uINN40E9JS9fpL71cTMlX6aR00d6K6182B');
     const elements = useElements();
@@ -13,6 +15,7 @@ const CheckoutForm = ({price, classCart}) => {
     const [clientSecret, setClientSecret] = useState('');
     const [processing, setProcessing] = useState(false);
     const [transactionId, setTransactionId] = useState('');
+
 
     useEffect(() => {
         if (price > 0) {
@@ -84,14 +87,22 @@ const CheckoutForm = ({price, classCart}) => {
                 classCartItems: classCart.map(item => item._id),
                 classItems: classCart.map(item => item.classId),
                 status: 'service pending',
-                classNames: classCart.map(item => item.name)
+                classNames: classCart.map(item => item.className)
             }
             axiosSecure.post('/payments', payment)
                 .then(res => {
                     console.log(res.data);
-                    
+                   
                 })
         }
+
+        updateStatus(classCart.map(item => item._id), "success")
+        .then(data => {
+            console.log(data)
+            refetch()
+            toast.success('You are Successfully Enrolled')
+        })
+
 
 
     }

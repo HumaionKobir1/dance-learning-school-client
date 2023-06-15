@@ -15,3 +15,14 @@ export const getClasses = async email => {
     const data = await response.json()
     return data
   }
+
+
+export const getPayment = async email => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/payment/${email}`, {
+        headers: {
+            authorization: `bearer ${localStorage.getItem('access-token')}`
+        },
+    })
+    const data = await response.json()
+    return data
+  }
